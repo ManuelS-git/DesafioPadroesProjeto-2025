@@ -24,7 +24,7 @@ public class DadoHistorico implements IDado {
      * forces the next roll to be a low value (1 or 2).
      */
     @Override
-    public void lançar() {
+    public void lancar() {
         if (ultimasCincoAltas()) {
             // Forces a low value (1 or 2)
             if (dado instanceof Dado) {
@@ -32,10 +32,10 @@ public class DadoHistorico implements IDado {
                 int valorBaixo = 1 + (int)(Math.random() * Math.min(2, lados));
                 ((Dado)dado).valorJogada = valorBaixo;
             } else {
-                dado.lançar();
+                dado.lancar();
             }
         } else {
-            dado.lançar();
+            dado.lancar();
         }
         historico.add(dado.getValor());
     }

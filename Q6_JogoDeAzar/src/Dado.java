@@ -21,7 +21,7 @@ public class Dado implements IDado {/
     /**
      * Rolls the dice
      */
-    public void lançar() {
+    public void lancar() {
         valorJogada = random.nextInt(lados) + 1;
     }
 
