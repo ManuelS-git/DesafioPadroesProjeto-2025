@@ -1,43 +1,37 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
- * Decorator for dice that adds the ability to keep a history of all rolls.
  * If the last 5 rolls are all greater than 4, the next roll will be forced to a low value (1 or 2).
  */
-public class DadoHistorico implements IDado {
-    /** The decorated dice */
-    private final IDado dado;
-    /** List storing the history of all rolled values */
+public class DadoHistorico implements InterfaceDado {
+    private final InterfaceDado dado;
     private final List<Integer> historico = new ArrayList<>();
+    private int valorAtual;
 
     /**
-     * Constructs a historical dice
+     * Constructor
      * @param dado The dice to decorate
      */
-    public DadoHistorico(IDado dado) {
+    public DadoHistorico(InterfaceDado dado) {
         this.dado = dado;
     }
 
     /**
      * Rolls the dice. If the last 5 rolls were all high (greater than 4),
-     * forces the next roll to be a low value (1 or 2).
+     * Then the next roll will be a low value (1 or 2).
      */
     @Override
-    public void lancar() {
+    public void rolar() {
         if (ultimasCincoAltas()) {
-            // Forces a low value (1 or 2)
-            if (dado instanceof Dado) {
-                int lados = ((Dado)dado).lados;
-                int valorBaixo = 1 + (int)(Math.random() * Math.min(2, lados));
-                ((Dado)dado).valorJogada = valorBaixo;
-            } else {
-                dado.lancar();
-            }
+            // Forces a low value (1 or 2). O próprio decorador gera e armazena este valor.
+            this.valorAtual = new Random().nextInt(2) + 1;
         } else {
-            dado.lancar();
+            dado.rolar();
+            this.valorAtual = dado.getValor();
         }
-        historico.add(dado.getValor());
+        historico.add(this.valorAtual);
     }
 
     /**
@@ -53,16 +47,16 @@ public class DadoHistorico implements IDado {
     }
 
     /**
-     * Returns the value obtained in the last roll.
-     * @return Last rolled value
+     * Returns the value in the last roll.
+     * @return Last rolled
      */
     @Override
     public int getValor() {
-        return dado.getValor();
+        return this.valorAtual;
     }
 
     /**
-     * Returns the history of all rolled values.
+     * Returns  all rolled.
      * @return List of all rolled values
      */
     public List<Integer> getHistorico() {

@@ -1,33 +1,19 @@
 import java.util.Random;
 
-/**
- * Represents a dice with a configurable number of sides.
- * Provides methods to roll the dice and retrieve the last rolled value.
- */
-public class Dado implements IDado {/
+public class Dado implements InterfaceDado {
     private int lados;
-    int valorJogada;
+    private int valorJogada;
     private final Random random;
 
-    /**
-     * Constructs a dice 
-     * @param lados Number of sides
-     */
     public Dado(int lados) {
         this.lados = lados;
         this.random = new Random();
     }
 
-    /**
-     * Rolls the dice
-     */
-    public void lancar() {
+    public void rolar() {
         valorJogada = random.nextInt(lados) + 1;
     }
 
-    /**
-     * @return Last rolled value
-     */
     public int getValor() {
         return valorJogada;
     }

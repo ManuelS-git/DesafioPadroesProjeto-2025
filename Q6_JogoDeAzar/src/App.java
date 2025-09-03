@@ -1,19 +1,11 @@
-/**
- * Main application class for the dice game.
- * Demonstrates the use of dice with history and forced low values after a lucky streak.
- */
 public class App {
-    /**
-     * Main method to run the dice game example.
-     * @param args Command line arguments
-     */
     public static void main(String[] args) {
-        IDado d6 = new DadoHistorico(new Dado(6));
-        IDado d20 = new DadoHistorico(new Dado(20));
+        InterfaceDado d6 = new DadoHistorico(new Dado(6));
+        InterfaceDado d20 = new DadoHistorico(new Dado(20));
 
-        for (int i = 0; i < 5; i++) {
-            d6.lançar();
-            d20.lançar();
+        for (int i = 0; i < 10; i++) {
+            d6.rolar();
+            d20.rolar();
         }
 
         System.out.println("D6 último valor: " + d6.getValor());
